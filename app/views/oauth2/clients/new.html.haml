@@ -1,0 +1,20 @@
+%h1
+  Create an Application
+  
+= form_for Oauth2::Client.new do |f|
+  %table
+    %tr
+      %td
+        Name
+      %td
+        = f.text_field :name
+    %tr
+      %td
+        URL
+      %td
+        = f.text_field :url
+    %tr
+      %td
+        
+      %td
+        = f.submit "create application"

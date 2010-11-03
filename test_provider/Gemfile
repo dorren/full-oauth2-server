@@ -1,0 +1,10 @@
+source 'http://rubygems.org'
+
+gem 'rails', '3.0.0'
+gem 'couchrest_model'
+gem 'haml', '>=3.0.21'
+
+gem "rspec-rails"
+gem "rack-oauth2"
+gem "full-oauth2-server", :path => "../"
+gem "ruby-debug"
