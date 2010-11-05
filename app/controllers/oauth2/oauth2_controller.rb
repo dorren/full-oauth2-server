@@ -27,16 +27,18 @@ module Oauth2
             @user = nil # User.authenticate!(req.username, req.password)
             @client = Oauth2::Client.find(req.client_id)
             req.invalid_client!('Invalid client identifier.') unless @client
+            req.invalid_client!('Invalid client secret.')  unless @client.secret_valid?(req.client_secret)
           rescue Exception # User::InvalidCredentials
             req.invalid_grant! 'Invalid resource ownwer credentials.'
           end
         when :assertion
           # I'm not familiar with SAML, so raise error for now.
           req.unsupported_grant_type! "SAML is not supported."
-        when :none
+        when :client_credentials
           begin
             @client = Oauth2::Client.find(req.client_id)
             req.invalid_client!('Invalid client identifier.') unless @client
+            req.invalid_client!('Invalid client secret.')  unless @client.secret_valid?(req.client_secret)
           rescue Exception 
             req.invalid_grant! 'Invalid client credential.'
           end

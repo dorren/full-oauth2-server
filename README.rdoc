@@ -2,16 +2,16 @@
 
 Description goes here.
 
-== Note on Patches/Pull Requests
- 
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+== client_credentials flow
+client application sends an access token request, providing 3 paramaters, grant_type, client id, and secret.
 
-== Copyright
-
-Copyright (c) 2010 Dorren Chen. See LICENSE for details.
+  http://localhost:3000/oauth/token?
+  grant_type=client_credentials&
+  client_id=1b7b29722672ffa9b68951fd8dbb8bad&
+  client_secret=b14090072a7261b02619b85c223787b756e5deda
+  
+server returns access_token in json format:
+  {"access_token":"1b7b29722672ffa9b68951fd8ddaa3f6","expires_in":3600}
+  
+then client can access resources by passing the access_token in parameter or header, see oauth header
+  http://localhost:3000/datap/?oauth_token=1b7b29722672ffa9b68951fd8ddaa3f6  

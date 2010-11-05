@@ -44,16 +44,16 @@ module TestProvider
     
     
     require 'rack/oauth2'
-      oauth2_authenticator = lambda do |request|
-        access_token = Oauth2::AccessToken.find(request.access_token)
-        if access_token.blank?
-          request.invalid_token! "Given access token is invalid."
-        elsif access_token.expired?
-          request.expired_token! "Given access token has been expired."
-        elsif access_token.revoked?
-          request.invalid_token! "Given access token has been revoked."
-        end
+    oauth2_authenticator = lambda do |request|
+      access_token = Oauth2::AccessToken.find(request.access_token)
+      if access_token.blank?
+        request.invalid_token! "Given access token is invalid."
+      elsif access_token.expired?
+        request.expired_token! "Given access token has been expired."
+      elsif access_token.revoked?
+        request.invalid_token! "Given access token has been revoked."
       end
+    end
     # config.middleware.use Rack::OAuth2::Server::Resource, &oauth2_authenticator
     config.middleware.use FullOauth2Server::ApiResource, 
                           {:realm => "localhost",
